@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  backend-net:
+    driver: bridge
+
+services:
+  system-sys-app-api:
+    build:
+      context: .
+    container_name: system-sys-app-api
+    ports:
+      - "8000:8000"
+    user: "${DUID}:${DGID}"
+    networks:
+      - backend-net
+    depends_on:
+      - system-sys-app-db
+    env_file: ./app/app/local.env
+    volumes:
+      - "./src:/src/app/src"
+    command: /src/app/entrypoints/docker-entrypoint-dev.sh
+
+  system-sys-app-db:
+    image: postgres:13
+    container_name: system-sys-app-db
+    ports:
+      - "5432:5432"
+    networks:
+      - backend-net
+    volumes:
+      - "/docker/data/db:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: "system-sys"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
