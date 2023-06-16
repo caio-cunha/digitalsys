@@ -11,7 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+from os.path import dirname, join, exists
 
+# Load operating system env variables and prepare to use them
+env = environ.Env()
+
+# .env file, should load only in development environment
+env_file = join(dirname(__file__), 'local.env')
+if exists(env_file):
+    environ.Env.read_env(str(env_file))
+                         
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)3%gck_=^hd3n)&q+n5*)6rp&tplh$9ppop$uirnrbb$%iwf0^'
+SECRET_KEY =  env('DJANGO_SECRET_KEY', default='fb=p&x4+rh1u6b#0wi*cwxzc*u_hzxf6g+p&7cqzspbrp6c(^d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'loans',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +87,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'system-sys-app-db',
+        'PORT': '5432',
     }
+
 }
 
 
