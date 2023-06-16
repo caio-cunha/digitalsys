@@ -24,6 +24,7 @@ services:
   system-sys-app-db:
     image: postgres:13
     container_name: system-sys-app-db
+    hostname: system-sys-app-db
     ports:
       - "5432:5432"
     networks:
@@ -31,6 +32,6 @@ services:
     volumes:
       - "/docker/data/db:/var/lib/postgresql/data"
     environment:
-      POSTGRES_DB: "system-sys"
+      POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
