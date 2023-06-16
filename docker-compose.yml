@@ -24,7 +24,6 @@ services:
   system-sys-app-db:
     image: postgres:13
     container_name: system-sys-app-db
-    hostname: system-sys-app-db
     ports:
       - "5432:5432"
     networks:
