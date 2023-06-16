@@ -17,7 +17,7 @@ class LoansView(
 
     __basic_fields = [
         "name",
-        "endereco"
+        "address"
     ]
 
     permission_classes = [

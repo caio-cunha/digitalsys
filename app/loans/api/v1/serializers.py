@@ -9,7 +9,7 @@ class LoansListRetrieveSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "cpf",
-            "endereco",
+            "address",
             "value",
         )
         ref_name = "LoansList"
