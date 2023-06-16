@@ -18,7 +18,7 @@ services:
       - system-sys-app-db
     env_file: ./app/app/local.env
     volumes:
-      - "./src:/src/app/src"
+      - "./app:/src/app/app"
     command: /src/app/entrypoints/docker-entrypoint-dev.sh
 
   system-sys-app-db:
