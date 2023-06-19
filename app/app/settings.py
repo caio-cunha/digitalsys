@@ -82,6 +82,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
+CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='amqp://rabbitmq')
+CELERY_RESULT_BACKEND = env('REDIS_URL', default='redis://localhost')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -89,11 +94,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'system-sys-app-db',
-        'PORT': '5432',
+        'NAME': env('DATABASE_NAME', default='postgres'),
+        'USER': env('DATABASE_USERNAME', default='postgres'),
+        'PASSWORD': env('DATABASE_PASSWORD', default='postgres'),
+        'HOST': env('DATABASE_HOST', default='localhost'),
+        'PORT': env('DATABASE_PORT', default=5432),
     }
 
 }
