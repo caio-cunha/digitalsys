@@ -33,7 +33,29 @@ loan_create_docs = {
     "auto_schema": LoansAutoSchema,
     "operation_summary": 'Save one loan',
     "responses": {
-        status.HTTP_201_CREATED: serializers.LoansCreateSerializer,
+        status.HTTP_201_CREATED: serializers.LoansCreateUpdateSerializer,
+        status.HTTP_400_BAD_REQUEST: '{"error": [message]}',
+        status.HTTP_401_UNAUTHORIZED: '{"error": [message]}',
+        status.HTTP_404_NOT_FOUND: '{"error": [message]}',
+    },
+}
+
+loan_update_docs = {
+    "auto_schema": LoansAutoSchema,
+    "operation_summary": 'Update one loan',
+    "responses": {
+        status.HTTP_200_OK: serializers.LoansCreateUpdateSerializer,
+        status.HTTP_400_BAD_REQUEST: '{"error": [message]}',
+        status.HTTP_401_UNAUTHORIZED: '{"error": [message]}',
+        status.HTTP_404_NOT_FOUND: '{"error": [message]}',
+    },
+}
+
+loan_destroy_docs = {
+    "auto_schema": LoansAutoSchema,
+    "operation_summary": 'Delete loan',
+    "responses": {
+        status.HTTP_204_NO_CONTENT: '',
         status.HTTP_400_BAD_REQUEST: '{"error": [message]}',
         status.HTTP_401_UNAUTHORIZED: '{"error": [message]}',
         status.HTTP_404_NOT_FOUND: '{"error": [message]}',

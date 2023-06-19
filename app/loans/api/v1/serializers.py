@@ -14,7 +14,7 @@ class LoansListRetrieveSerializer(serializers.ModelSerializer):
         )
         ref_name = "LoansList"
 
-class LoansCreateSerializer(serializers.ModelSerializer):
+class LoansCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loans
