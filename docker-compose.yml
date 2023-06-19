@@ -43,7 +43,7 @@ services:
     networks:
       - backend-net
     environment:
-      - RABBITMQ_DEFAULT_USER=caio
+      - RABBITMQ_DEFAULT_USER=root
       - RABBITMQ_DEFAULT_PASS=123456
 
   system-sys-app-worker:
