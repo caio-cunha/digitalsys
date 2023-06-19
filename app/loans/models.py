@@ -22,6 +22,7 @@ class Loans(Timestamp):
     )
     address = models.CharField(max_length=300, verbose_name='address')
     value = models.FloatField(verbose_name='value')
+    status = models.BooleanField(verbose_name='status', default=False, null=False, blank=False)
 
     def __str__(self) -> str:
         return self.name
