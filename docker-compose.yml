@@ -34,3 +34,36 @@ services:
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
+
+  system-sys-app-rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend-net
+    environment:
+      - RABBITMQ_DEFAULT_USER=caio
+      - RABBITMQ_DEFAULT_PASS=123456
+
+  system-sys-app-worker:
+    build:
+      context: .
+    container_name: system-sys-app-worker
+    depends_on:
+      - system-sys-app-rabbitmq
+      - system-sys-app-db
+    networks:
+      - backend-net
+    env_file:
+      - ./app/app/local.env
+    command:
+      - /src/app/entrypoints/docker-entrypoint-celery.sh
+
+  system-sys-app-redis:
+    image: redis:latest
+    hostname: redis
+    ports:
+      - 6379:6379
+    networks:
+      - backend-net
