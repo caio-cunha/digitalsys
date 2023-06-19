@@ -28,37 +28,77 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Digital Sys - Gerenciador de Empréstimos</h1>
-    <h3>Solicite o empréstimo:</h1>
-    <label for="name">Nome:</label>
-    <input type="text" id="name">
-    <label for="cpf">CPF:</label>
-    <input type="text" id="cpf">
-    <label for="address">Endereço:</label>
-    <input type="text" id="address">
-    <label for="address">Valor Empréstimo:</label>
-    <input type="text" id="address">
-    <button onclick="registerLoans()">Solicitar</button>
-    <div id="result"></div>
-  </div>
+    <div class="container">
+      <h1>Digital Sys - Gerenciador de Empréstimos</h1>
+      <h3>Solicite o empréstimo:</h1>
+      <form id="loansForm" method="post">
+        {% csrf_token %}
+        <label for="name">Nome:</label>      
+        <input type="text" id="name">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf">
+        <label for="address">Endereço:</label>
+        <input type="text" id="address">
+        <label for="value">Valor Empréstimo:</label>
+        <input type="text" id="value">
+        <button type="submit">Solicitar</button>
+        <label id="result"></label>
+        <div></div>
+      </form>
+    </div>
 
   <script>
-    function registerLoans() {
-      const endpoint = document.getElementById('endpoint').value;
-      const url = 'http://localhost:8000' + endpoint; // Ajuste o URL base de acordo com o seu ambiente
 
-      fetch(url)
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    document.getElementById('loansForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const url = 'http://localhost:8000/api/v1/loans/';
+      const formData = new FormData();
+      formData.append('name',document.getElementById("name").value);
+      formData.append('cpf',document.getElementById("cpf").value);
+      formData.append('address',document.getElementById("address").value);
+      formData.append('value',document.getElementById("value").value);    
+      const username = 'caio';
+      const password = '123456';
+      const authHeader = 'Basic ' + btoa(username + ':' + password);
+
+      fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+          'Authorization': authHeader
+        }
+      })
         .then(response => response.json())
         .then(data => {
-          const resultElement = document.getElementById('result');
-          resultElement.textContent = JSON.stringify(data, null, 2);
+          const label = document.getElementById("result");
+          label.innerHTML = '';
+          for (var prop in data){
+            label.innerHTML += prop;
+            label.innerHTML += ': ';
+            label.innerHTML += data[prop];
+            label.innerHTML += '<br>'
+          }
         })
         .catch(error => {
-          const resultElement = document.getElementById('result');
-          resultElement.textContent = 'Erro ao chamar o endpoint: ' + error.message;
+          document.getElementById("result").value = error;
         });
-    }
+    });
   </script>
 </body>
 </html>
