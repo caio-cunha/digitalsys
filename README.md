@@ -53,18 +53,19 @@ cd ..
 sudo bash ./scripts/run-dev.sh up # Up the docker containers
 sudo bash ./scripts/run-dev.sh upd # Up the docker containers as daemon mode
 ```
-3. Enter in frontend application:
 
-```bash
-localhost:8000
-```
-
-4. Enter in djang-admin:
+3. Enter in djang-admin:
 
 ```bash
 localhost:8000/admin
 user: admin
 password: 123456
+```
+
+4. Enter in frontend application:
+
+```bash
+localhost:8000
 ```
 
 5. Enter in swagger (documantation):
