@@ -39,9 +39,9 @@ sudo chown -R $USER:$USER .
 
 ## Running the project
 
-1. Before to execute the commands bellow, create the .env with base in local.example.env:
+1. Before to execute the commands bellow, create the local.env with base in local.example.env:
 
-**_NOTE:_** Get the full .env in email. 
+**_NOTE: Get the full .env in email. _**
 
 2. Executation of the application:
 
