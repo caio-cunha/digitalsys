@@ -41,7 +41,9 @@ sudo chown -R $USER:$USER .
 
 1. Before to execute the commands bellow, create the local.env with base in local.example.env:
 
-**_NOTE: Get the full .env in email. _**
+```bash
+cp app/app/local.example.env app/app/local.env
+```
 
 2. Executation of the application:
 
