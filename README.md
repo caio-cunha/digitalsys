@@ -43,6 +43,8 @@ sudo chown -R $USER:$USER .
 
 ```bash
 cp app/app/local.example.env app/app/local.env
+cd ..
+cd ..
 ```
 
 2. Executation of the application:
