@@ -1,7 +1,6 @@
 # Sistema de Propostas de Emprestímos
 
-Aplicação para cadastrar/editar/deletar propostas de empréstimos. 
-
+Application to register/edit/delete grant proposals.
 ***
 
 ## Quick Reference
